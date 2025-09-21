@@ -1,0 +1,51 @@
+# Python - Generated files from running Python code
+__pycache__/          # Python bytecode cache folder
+*.py[cod]             # Compiled Python files (.pyc, .pyo, .pyd)
+*$py.class            # More compiled Python files
+*.so                  # Shared object files (Linux/Mac)
+.Python               # Python installation marker
+env/                  # Virtual environment folder
+venv/                 # Another common virtual environment name
+ENV/                  # Environment folder
+env.bak/              # Backup environment folder
+venv.bak/             # Backup virtual environment folder
+
+# Jupyter Notebook - If you use notebooks
+.ipynb_checkpoints    # Jupyter's automatic checkpoints
+
+# Dataset files (TOO LARGE for GitHub)
+creditcard.csv        # Your main dataset (150+ MB)
+*.csv                 # All CSV files (can be huge)
+
+# Model files (can be regenerated)
+*.pkl                 # Pickle files (your saved models)
+*.joblib              # Joblib files (scikit-learn models)
+*.h5                  # HDF5 files (deep learning models)
+*.model               # General model files
+
+# IDE - Code editor settings
+.vscode/              # Visual Studio Code settings
+.idea/                # PyCharm/IntelliJ settings
+*.swp                 # Vim swap files
+*.swo                 # More Vim files
+
+# Operating System files
+.DS_Store             # Mac folder settings
+.DS_Store?            # Mac backup folder settings
+._*                   # Mac resource forks
+.Spotlight-V100       # Mac Spotlight index
+.Trashes              # Mac trash folder
+ehthumbs.db           # Windows thumbnail cache
+Thumbs.db             # Windows thumbnail database
+
+# Logs and temporary files
+*.log                 # Log files
+logs/                 # Log directories
+*.tmp                 # Temporary files
+*.temp                # More temporary files
+
+# Streamlit specific
+.streamlit/           # Streamlit configuration
+
+# Environment variables (VERY IMPORTANT!)
+.env                  # File containing secrets/passwords
