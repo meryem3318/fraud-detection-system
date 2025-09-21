@@ -48,4 +48,4 @@ logs/                 # Log directories
 .streamlit/           # Streamlit configuration
 
 # Environment variables (VERY IMPORTANT!)
-.env                  # File containing secrets/passwords
+.env                  # File containing secrets/passwordscreditcard.csv 
