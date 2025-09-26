@@ -3,7 +3,6 @@ import pandas as pd
 import joblib
 import os
 
-# Load both the model and the scaler
 @st.cache_resource
 def load_model_and_scaler():
     try:
@@ -20,7 +19,6 @@ model, scaler = load_model_and_scaler()
 st.title("💳 Credit Card Fraud Detector")
 st.write("Upload a CSV file of transactions and the app will predict fraud.")
 
-# Show expected format
 with st.expander("Expected CSV Format"):
     st.write("""
     Your CSV should contain the following columns:
@@ -30,7 +28,6 @@ with st.expander("Expected CSV Format"):
     The V1-V28 columns are PCA-transformed features from the original credit card dataset.
     """)
 
-# Upload file
 uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
 if uploaded_file is not None and model is not None and scaler is not None:
@@ -41,11 +38,8 @@ if uploaded_file is not None and model is not None and scaler is not None:
         st.write(f"Shape: {data.shape}")
         st.write(data.head())
         
-        # Prepare data for prediction
-        # Remove 'Class' column if it exists (ground truth)
         features = data.drop("Class", axis=1, errors="ignore")
         
-        # Check if we have the required columns
         required_columns = ['Time', 'Amount'] + [f'V{i}' for i in range(1, 29)]
         missing_columns = [col for col in required_columns if col not in features.columns]
         
@@ -53,17 +47,13 @@ if uploaded_file is not None and model is not None and scaler is not None:
             st.error(f"Missing required columns: {missing_columns}")
             st.stop()
         
-        # Apply the same preprocessing as during training
         features_scaled = features.copy()
         
-        # Scale Time and Amount columns using the saved scaler
         features_scaled[['Time', 'Amount']] = scaler.transform(features_scaled[['Time', 'Amount']])
         
-        # Make predictions
         predictions = model.predict(features_scaled)
         prediction_proba = model.predict_proba(features_scaled)
         
-        # Add results to original data
         results_df = data.copy()
         results_df["Fraud_Prediction"] = predictions
         results_df["Fraud_Probability"] = prediction_proba[:, 1]  # Probability of fraud
@@ -72,16 +62,15 @@ if uploaded_file is not None and model is not None and scaler is not None:
         
         def highlight_fraud(row):
             if row['Fraud_Prediction'] == 1:
-                return ['background-color: #ffcccc'] * len(row)  # Light red for fraud
+                return ['background-color: #ffcccc'] * len(row)  
             else:
-                return ['background-color: #ccffcc'] * len(row)  # Light green for normal
+                return ['background-color: #ccffcc'] * len(row) 
         
         st.dataframe(
             results_df.head(20).style.apply(highlight_fraud, axis=1),
             use_container_width=True
         )
         
-        # Summary statistics
         fraud_count = (predictions == 1).sum()
         total_transactions = len(predictions)
         fraud_percentage = (fraud_count / total_transactions) * 100
@@ -100,7 +89,6 @@ if uploaded_file is not None and model is not None and scaler is not None:
         if fraud_count > 0:
             st.warning(f"⚠️ Detected {fraud_count} suspected fraudulent transactions ({fraud_percentage:.2f}%)")
             
-            # Show high-risk transactions
             fraud_transactions = results_df[results_df['Fraud_Prediction'] == 1].copy()
             fraud_transactions = fraud_transactions.sort_values('Fraud_Probability', ascending=False)
             
