@@ -12,7 +12,6 @@ import os
 
 print(" Starting fraud detection training...")
 
-# Load dataset
 data = pd.read_csv("creditcard.csv")
 print(f"✅ Dataset loaded: {data.shape}")
 print(f"Fraud cases: {data['Class'].sum()} / {len(data)} ({data['Class'].sum()/len(data)*100:.2f}%)")
