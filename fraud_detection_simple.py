@@ -13,7 +13,7 @@ import os
 print(" Starting fraud detection training...")
 
 data = pd.read_csv("creditcard.csv")
-print(f"✅ Dataset loaded: {data.shape}")
+print(f" Dataset loaded: {data.shape}")
 print(f"Fraud cases: {data['Class'].sum()} / {len(data)} ({data['Class'].sum()/len(data)*100:.2f}%)")
 
 X = data.drop('Class', axis=1)
@@ -28,7 +28,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 smote = SMOTE(random_state=42)
 X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
-print(f"✅ Data balanced: {y_train_resampled.value_counts().to_dict()}")
+print(f" Data balanced: {y_train_resampled.value_counts().to_dict()}")
 
 models = {
     "Logistic Regression": LogisticRegression(max_iter=1000),
@@ -68,7 +68,7 @@ for name, model in models.items():
     recall = tp / (tp + fn) if (tp + fn) > 0 else 0
     f1 = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
     
-    print(f"✅ {name} completed:")
+    print(f" {name} completed:")
     print(f"   ROC AUC: {roc_auc:.4f}")
     print(f"   Fraud Recall: {recall:.4f}")
     print(f"   Fraud Precision: {precision:.4f}")
@@ -82,9 +82,9 @@ best_model = models[best_model_name]
 joblib.dump(best_model, "fraud_model.pkl")
 joblib.dump(scaler, "scaler.pkl")
 
-print(f"✅ Model saved: fraud_model.pkl")
-print(f"✅ Scaler saved: scaler.pkl")
-print(f"🚀 Training completed successfully!")
+print(f" Model saved: fraud_model.pkl")
+print(f" Scaler saved: scaler.pkl")
+print(f" Training completed successfully!")
 
 print(f"\n Confusion Matrix for {best_model_name}:")
 conf = results[best_model_name]["conf_matrix"]
