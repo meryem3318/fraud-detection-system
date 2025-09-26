@@ -16,7 +16,7 @@ def load_model_and_scaler():
 
 model, scaler = load_model_and_scaler()
 
-st.title("💳 Credit Card Fraud Detector")
+st.title(" Credit Card Fraud Detector")
 st.write("Upload a CSV file of transactions and the app will predict fraud.")
 
 with st.expander("Expected CSV Format"):
@@ -87,7 +87,7 @@ if uploaded_file is not None and model is not None and scaler is not None:
             st.metric("Fraud Rate", f"{fraud_percentage:.2f}%")
         
         if fraud_count > 0:
-            st.warning(f"⚠️ Detected {fraud_count} suspected fraudulent transactions ({fraud_percentage:.2f}%)")
+            st.warning(f" Detected {fraud_count} suspected fraudulent transactions ({fraud_percentage:.2f}%)")
             
             fraud_transactions = results_df[results_df['Fraud_Prediction'] == 1].copy()
             fraud_transactions = fraud_transactions.sort_values('Fraud_Probability', ascending=False)
@@ -98,7 +98,7 @@ if uploaded_file is not None and model is not None and scaler is not None:
                 use_container_width=True
             )
         else:
-            st.success("✅ No fraudulent transactions detected!")
+            st.success(" No fraudulent transactions detected!")
         
         if 'Class' in data.columns:
             actual_fraud = data['Class'].sum()
