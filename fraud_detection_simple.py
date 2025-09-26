@@ -46,7 +46,7 @@ best_model_name = ""
 best_roc_auc = 0
 
 for name, model in models.items():
-    print(f"⏳ Training {name}...")
+    print(f" Training {name}...")
     
     model.fit(X_train_resampled, y_train_resampled)
     y_pred = model.predict(X_test)
